@@ -83,7 +83,7 @@ Existen oportunidades de mejora desde que, por ejemplo,
 
 # Documentación
 
-Se ha generado el archivo `swagger-challenge.yml` con la documentación Open API (swagger) de la API. La documentación también se encontrará disponible en el siguiente link: <a href="https://app.swaggerhub.com/apis-docs/FAQ_CODES/nisum-challenge-api/1.0.0" target="_blank">Swagger Nisum Challenge API</a>
+Se ha generado el archivo [swagger-challenge.yml](docs/swagger-challenge.yml) con la documentación Open API (swagger) de la API. La documentación también se encontrará disponible en el siguiente link: <a href="https://app.swaggerhub.com/apis-docs/FAQ_CODES/nisum-challenge-api/1.0.0" target="_blank">Swagger Nisum Challenge API</a>
 
 ![OPEN API](docs/images/swagger-challenge.png)
 

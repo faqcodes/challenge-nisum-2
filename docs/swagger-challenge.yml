@@ -1,0 +1,172 @@
+openapi: '3.0.2'
+info:
+  title: Nisum Challenge API
+  version: 1.0.0
+  description: >
+    La API Rest Nisum challenge API expone las operación necesarias para el registro de un usuario
+    <br>
+  contact:
+    email: faqcodes@gmail.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  # Added by API Auto Mocking Plugin
+  - url: 'http://localhost:8080/api/'
+    description: Local Development Environment
+paths:
+  ###
+  ### Register
+  ###
+  /signup:
+    post:
+      tags:
+        - Registro de usuarios
+      summary: Registro de un usuario
+      description: Registro de un usuario
+      requestBody:
+        description: Objeto con datos requeridos para el registro de un usuario
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInputModel'
+        required: true
+      responses:
+        '201':
+          description: El usuario se ha registrado satisfactoriamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOutputModel201'
+        '400':
+          description: Error al crear el usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOutputModel400'
+        '403':
+          description: No se encuentra autorizado para registrar un usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOutputModel403'
+        '409':
+          description: El usuario ya se encuentra registrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOutputModel409'
+components:
+  schemas:
+    ErrorModel:
+      type: object
+      properties:
+        code:
+          example: ERROR
+        message:
+          example: Hubo un error al ejecutar la acción. Intente nuevamente más tarde
+    UnauthorizedError:
+      type: object
+      properties:
+        code:
+          example: ERROR
+        message:
+          example: No se encontró JWT Access token or es inválido
+
+    PhoneModel:
+      type: object
+      properties:
+        number:
+          type: number
+          description: Número de teléfono
+          example: 1234567
+        citycode:
+          type: number
+          description: Código de ciudad
+          example: 1
+        countrycode:
+          type: number
+          description: Código de país
+          example: 57
+
+
+    UserInputModel:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del usuario
+          example: Juan Rodriguez
+        email:
+          type: string
+          description: Correo electrónico del usuario
+          example: juan@rodriguez.org
+        password:
+          type: string
+          description: Contraseña del usuario
+          example: hunter2
+        phones:
+          type: array
+          description: Colección de teléfonos de contacto del usuario
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/PhoneModel'
+
+    UserOutputModel:
+      type: object
+      properties:
+        id:
+          type: number
+          description: ID del usuario
+          example: a5ad5599-fd15-4c5c-ba06-ba7aca2e1cd1
+        created:
+          type: string
+          description: Fecha de creación del usuario
+          example: 2023-11-26 18:49:01
+        modified:
+          type: string
+          description: Fecha de la última actualización de usuario
+          example: 2023-11-26 18:49:01
+        lastlogin:
+          type: string
+          description: Fecha del último ingreso
+          example: 2023-11-26 18:49:01
+        token:
+          type: string
+          description: Token de acceso de la API
+          example: eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJhNWFkNTU5OS1mZDE1LTRjNWMtYmEwNi1iYTdhY2EyZTFjZDEiLCJzdWIiOiJqdWFuQHJvZHJpZ3Vlei5vcmciLCJpYXQiOjE3MDEwMzUzNDEsImV4cCI6MTcwMTA1MzM0MX0.qmzuydvV6JhyDgKEMnB3yydx3z7xh5dcdJiGEVfmuO4
+        active:
+          type: boolean
+          description: Indica si el usuario sigue habilitado dentro del sistema
+          example: true
+
+    UserOutputModel201:
+      type: object
+      properties:
+        code:
+          example: SUCCESS
+        message:
+          example: El usuario se ha registrado satisfactoriamente
+        data:
+          $ref: '#/components/schemas/UserOutputModel'
+    UserOutputModel400:
+      type: object
+      properties:
+        code:
+          example: ERROR
+        message:
+          example: Error al registrar el usuario
+    UserOutputModel403:
+      type: object
+      properties:
+        code:
+          example: ERROR
+        message:
+          example: No se encuentra autorizado para registrar al usuario
+    UserOutputModel409:
+      type: object
+      properties:
+        code:
+          example: ERROR
+        message:
+          example: El correo ya se encuentra registrado

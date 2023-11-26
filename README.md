@@ -45,6 +45,8 @@ Ese endpoint deberá recibir un usuario con los campos "nombre", "correo", "cont
 - La clave debe seguir una expresión regular para validar que formato sea el correcto. (El valor de la expresión regular debe ser configurable)
 - El token deberá ser persistido junto con el usuario
 
+En este link se puede encontrar el detalle del desafío: <a href="docs/nisum-challenge-java.pdf" target="_blank">Nisum Challenge</a>
+
 # Diagrama de la solución
 
 En el diagrama se muestran las clases que componen la solución siguiendo el diseño de [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
@@ -53,7 +55,7 @@ La idea de utilizar este diseño es encapsular la lógica de negocio separándol
 
 ![Diagrama de la solución](docs/images/007-signup-diagram.png)
 
-## La secuencia de construcción de la solución es como sigue:
+## La secuencia de construcción de la solución es como sigue:
 
 Se crean las entidades de negocio con sus reglas
 ![Enterprise Bussines Rules](docs/images/001-signup-ebr.png)
@@ -76,12 +78,12 @@ Se genera el token JWT donde se desacopla su creación (otro ejemplo del uso del
 
 TODO: 
 Existen oportunidades de mejora desde que, por ejemplo, 
-- la entidad Phone no posee ninguna regla de negocio
+- la entidad Phone no posee ninguna regla de negocio, por lo tanto, se puede sacar de las entidades de negocio
 - la utilización de nuevas funciones según la versión de Java
 
 # Documentación
 
-Se ha generado el archivo `swagger-challenge.yml` con la documentación Open API (swagger) de la API
+Se ha generado el archivo `swagger-challenge.yml` con la documentación Open API (swagger) de la API. La documentación también se encontrará disponible en el siguiente link: <a href="https://app.swaggerhub.com/apis-docs/FAQ_CODES/nisum-challenge-api/1.0.0" target="_blank">Swagger Nisum Challenge API</a>
 
 ![OPEN API](docs/images/swagger-challenge.png)
 
@@ -89,7 +91,7 @@ Se ha generado el archivo `swagger-challenge.yml` con la documentación Open API
 
 Se ha implementado la solución con el uso de H2 como base de datos. La solución hace uso de JPA para la generación de las tablas en tiempo de ejecución, por tanto, NO HAY SCRIPT DE CREACIÓN DE BASE DE DATOS
 
-Para la población de datos, se ha generado el archivo `resources/import.sql`el que inserta un registro una vez desplegada la solución
+Para la población de datos, se ha generado el archivo `resources/import.sql` el que inserta un registro una vez desplegada la solución
 
 # Tests
 
@@ -103,18 +105,18 @@ La solución hace uso de Maven, por tanto, éste debe estar instalado.
 Para compilar la aplicación, se debe ejecutar el comando:
 
 ```
-mvn clean package install
+./mvnw clean install
 ```
 
 Para ejecutar la aplicación, se debe ejecutar el comando:
 
 ````
-mvn spring-boot:run
+./mvnw spring-boot:run
 ````
 
 # Prueba de la solución
 
-La API quedará disponible en la URL:
+Al ejecutar La API, quedará disponible en la URL:
 
 ```
 http://localhost:8080/api/signup
